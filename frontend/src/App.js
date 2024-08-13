@@ -2,6 +2,8 @@
 import logo from './logo.svg';
 import './App.css';
 import React, {useEffect, useState} from 'react';
+import {Bar} from 'react-chartjs-2'
+
 
 function App() {
   return (
@@ -26,19 +28,29 @@ function App() {
 
 
 function App() {
-    const [data, setData] = useState(null);
+    const [chartData, setChartData] = useState({});
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5000/')
+        fetch('http://127.0.0.1:5000/covid-data')
             .then(response => response.json())
-            .then(data => setData(data.message));
+            .then(data => {
+                setChartData({
+                    labels: data.countries,
+                    datasets: [
+                        {
+                            label: 'Total Cases',
+                            data: data.total_cases,
+                            backgroundColor: 'rgba(75,192,192,0.6)'
+                        }
+                    ]
+                });
+            });
     }, []);
 
     return (
         <div>
-            <h1>{data}</h1>
+            <Bar data={chartData} />
         </div>
     );
 }
-
 export default App;
