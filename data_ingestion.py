@@ -14,8 +14,8 @@ df = pd.DataFrame(countries_data)
 # Insert data into PostgreSQL
 conn = psycopg2.connect(
     dbname='covid19_data',
-    user='yourusername',
-    password='yourpassword',
+    user='nemo', # use username and password to which postgres database is registered to
+    password='nemo',
     host='localhost'
 )
 cursor = conn.cursor()
